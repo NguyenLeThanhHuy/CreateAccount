@@ -68,6 +68,18 @@ modal.addEventListener("click", function(e){
   }
 
   // ----------check lỗi email-----------
+  
+
+  function checkUserName(input) {
+    var username = document.querySelector("#username").value;
+    var pattern = new RegExp(/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/); //unacceptable chars
+    if (pattern.test(username)) {
+        showError(input,'Không được nhập kí tự đặc biệt')
+        return false;
+    }
+    return true; //good user input
+}
+
   function checkEmailError(input) {
     const regexEmail =
   /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -118,7 +130,11 @@ modal.addEventListener("click", function(e){
   form.addEventListener('submit',function(e) {
     e.preventDefault()
 
-    let isEmptyError = checkEmptyError([username, email,password,confirmPassword]);
+    
+    let isChar = checkUserName(username);
+
+
+    let isEmptyError = checkEmptyError([email,password,confirmPassword]);
 
     let isEmailError = checkEmailError(email);
 
@@ -127,13 +143,17 @@ modal.addEventListener("click", function(e){
 
     let isMatchPasswordError = checkMatchPasswordError(password,confirmPassword)
 
-    if(isEmptyError || isEmailError || isUsernameLengthError || isPasswordLengthError || isMatchPasswordError)
+
+
+    if(isEmptyError || isEmailError || isUsernameLengthError || isPasswordLengthError || isMatchPasswordError || isChar)
     {
+      // console.log(isSpclChar)
       console.log(isEmailError)
       console.log(isUsernameLengthError)
       console.log(isEmptyError)
       console.log(isPasswordLengthError)
       console.log(isMatchPasswordError)
+      console.log(isChar)
     }else{
       
       // logic , call API
