@@ -75,9 +75,9 @@ modal.addEventListener("click", function(e){
     var pattern = new RegExp(/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/); //unacceptable chars
     if (pattern.test(username)) {
         showError(input,'Không được nhập kí tự đặc biệt')
-        return false;
+        return true;
     }
-    return true; //good user input
+    return false; //good user input
 }
 
   function checkEmailError(input) {
